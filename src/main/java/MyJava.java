@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.*;
 
 public class MyJava implements MyInterface{
 
@@ -44,6 +42,13 @@ public class MyJava implements MyInterface{
 
         list.remove(0);
         System.out.println("after removal" + list);
+
+        HashSet<MyModel> hashSet = new HashSet<>();
+        hashSet.add(Student1);
+        hashSet.add(Student2);
+        hashSet.add(Student3);
+
+        System.out.println("search HashSet = " + hashSet );
 
     }
 
