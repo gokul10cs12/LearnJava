@@ -17,7 +17,7 @@ public class MyJava implements MyInterface{
 
         MyModel student4 = new MyModel("Munna", 30, "Nandavilasam");
 
-        System.out.println("args = " + sampleVar );
+//        System.out.println("args = " + sampleVar );
         MyJava myJava = new MyJava();
         myJava.printMe();
         myJava.testDefaultImplementation();
@@ -28,9 +28,9 @@ public class MyJava implements MyInterface{
         myHashMap.put("b", Student2);
         myHashMap.put("c", Student3);
 
-        if(myHashMap.containsKey("a")){
-            System.out.println("myHashMap key (a) value : " + myHashMap.get("a") );
-        }
+//        if(myHashMap.containsKey("a")){
+//            System.out.println("myHashMap key (a) value : " + myHashMap.get("a") );
+//        }
 //         ArrayList Operations
         ArrayList<MyModel> list = new ArrayList<>();
         list.add(Student1);
@@ -38,17 +38,37 @@ public class MyJava implements MyInterface{
         list.add(Student3);
         list.set(0,student4);
 
-        System.out.println("before removal" + list);
+//        System.out.println("before removal" + list);
 
         list.remove(0);
-        System.out.println("after removal" + list);
+//        System.out.println("after removal" + list);
 
         HashSet<MyModel> hashSet = new HashSet<>();
         hashSet.add(Student1);
         hashSet.add(Student2);
         hashSet.add(Student3);
 
-        System.out.println("search HashSet = " + hashSet );
+//        System.out.println("search HashSet = " + hashSet );
+
+        /*
+        *
+        *
+        * Exception handling
+        *
+        * */
+
+        ExceptionHandling exceptionHandling = new ExceptionHandling();
+        exceptionHandling.arithmeticException();
+        exceptionHandling.nullPointerException();
+
+        ThrowsExceptionHandling throwsExceptionHandling = new ThrowsExceptionHandling();
+        try {
+            throwsExceptionHandling.testException();
+        }
+        catch (Exception e){
+            System.out.println("THROWS exception = " + e);
+        }
+
 
     }
 
