@@ -1,6 +1,7 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
-public class MyJava implements MyInterface{
+public class MyJava {
 
     public static void main(String[] args) {
 
@@ -11,70 +12,49 @@ public class MyJava implements MyInterface{
         /*
         Create model class
         * */
-        MyModel Student1 = new MyModel("Gokul", 28, "Nandavilasam");
-        MyModel Student2 = new MyModel("Sneha", 28, "Nandavilasam");
-        MyModel Student3 = new MyModel("Neethu", 28, "Nandavilasam");
+        List<Person> personList = getPeople();
 
-        MyModel student4 = new MyModel("Munna", 30, "Nandavilasam");
+        List<Person> female = new ArrayList<>();
 
-//        System.out.println("args = " + sampleVar );
-        MyJava myJava = new MyJava();
-        myJava.printMe();
-        myJava.testDefaultImplementation();
+        for (Person person: personList) {
+            if (person.getGender().equals(Gender.FEMALE)){
+                female.add(person);
+            }
 
-//        HashMap
-        HashMap<String, MyModel> myHashMap = new HashMap<>();
-        myHashMap.put("a", Student1);
-        myHashMap.put("b", Student2);
-        myHashMap.put("c", Student3);
-
-//        if(myHashMap.containsKey("a")){
-//            System.out.println("myHashMap key (a) value : " + myHashMap.get("a") );
-//        }
-//         ArrayList Operations
-        ArrayList<MyModel> list = new ArrayList<>();
-        list.add(Student1);
-        list.add(Student2);
-        list.add(Student3);
-        list.set(0,student4);
-
-//        System.out.println("before removal" + list);
-
-        list.remove(0);
-//        System.out.println("after removal" + list);
-
-        HashSet<MyModel> hashSet = new HashSet<>();
-        hashSet.add(Student1);
-        hashSet.add(Student2);
-        hashSet.add(Student3);
-
-//        System.out.println("search HashSet = " + hashSet );
+        }
 
         /*
         *
-        *
-        * Exception handling
-        *
+        * java streams filter
+        * */
+        List<Person> females = personList.stream()
+                .filter(person -> person.getGender().equals(Gender.FEMALE)).toList();
+
+        /*
+        * java streams sorte
         * */
 
-        ExceptionHandling exceptionHandling = new ExceptionHandling();
-        exceptionHandling.arithmeticException();
-        exceptionHandling.nullPointerException();
-
-        ThrowsExceptionHandling throwsExceptionHandling = new ThrowsExceptionHandling();
-        try {
-            throwsExceptionHandling.testException();
-        }
-        catch (Exception e){
-            System.out.println("THROWS exception = " + e);
-        }
-
+        List<Person> femaleSorted = personList.stream().sorted(Comparator.comparing(Person::getAge)).toList();
+        femaleSorted.forEach(System.out::println);
 
     }
 
-    @Override
-    public void printMe() {
-        System.out.println("inside printMe()");
-        System.out.println("sampleVar=" + sampleVar);
+    /*
+    * Java streams declarative approach of the same solution above.
+    * */
+
+    private static List<Person> getPeople() {
+        return List.of(
+        new Person("Gokul", 1, Gender.MALE),
+        new Person("abc", 11, Gender.FEMALE),
+        new Person("cde", 22, Gender.MALE),
+        new Person("ee", 21, Gender.MALE),
+        new Person("er", 34, Gender.FEMALE),
+        new Person("dc", 3, Gender.MALE),
+        new Person("erw", 55, Gender.MALE),
+        new Person("we", 13, Gender.FEMALE)
+        );
     }
+
+
 }
