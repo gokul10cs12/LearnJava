@@ -1,3 +1,4 @@
+import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -5,38 +6,40 @@ public class MyJava {
 
     public static void main(String[] args) {
 
-        int a = 22;
-        int b = 223;
-        int c = 222;
+        Optional<String> optional = Optional.ofNullable(null);
 
-        /*
-        Create model class
-        * */
-        List<Person> personList = getPeople();
+        System.out.println(optional.isEmpty());
+        System.out.println(optional.isPresent());
+//        String orElse = optional.orElse("replaced string");  /* important dont remove */
 
-        List<Person> female = new ArrayList<>();
+      System.out.println( optional.orElseGet(() ->{
+            return "opt";
+        }));
+        optional.ifPresent(System.out::println);
 
-        for (Person person: personList) {
-            if (person.getGender().equals(Gender.FEMALE)){
-                female.add(person);
-            }
+        optional.ifPresentOrElse(word ->{
+            System.out.println("ifPresent");
+        }, () -> System.out.println("elsPart"));
 
-        }
 
-        /*
-        *
-        * java streams filter
-        * */
-        List<Person> females = personList.stream()
-                .filter(person -> person.getGender().equals(Gender.FEMALE)).toList();
+        Person person = new Person("myName", 21, Gender.MALE);
+//        System.out.println(person.getName().toUpperCase());
+        String name = person
+                .getName()
+                .map(String::toUpperCase)
+                .orElse("no email found");
+        System.out.println(name);
 
-        /*
-        * java streams sorte
-        * */
+        /*Stream example*/
 
-        List<Person> femaleSorted = personList.stream().sorted(Comparator.comparing(Person::getAge)).toList();
-        femaleSorted.forEach(System.out::println);
-
+        // Here the map will take each object and selectively create object/list based on the function it;s applying.
+        // in filters, it creates a new stream with filtered elements.
+        // ------>revisit again.
+/*
+        List<EmpDept> emp = employeeList.stream()
+                .map(e -> new EmpDept(e.getName(), e.getDept()))
+                .collect(Collectors.toList());
+   */
     }
 
     /*
