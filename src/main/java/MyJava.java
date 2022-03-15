@@ -31,11 +31,47 @@ public class MyJava {
                 .filter(person -> person.getGender().equals(Gender.FEMALE)).toList();
 
         /*
-        * java streams sorte
+        * java streams sorted
         * */
 
-        List<Person> femaleSorted = personList.stream().sorted(Comparator.comparing(Person::getAge)).toList();
+        List<Person> femaleSorted = personList
+                .stream()
+                .sorted(Comparator.comparing(Person::getAge).thenComparing(Person::getGender))
+                .toList();
         femaleSorted.forEach(System.out::println);
+
+        /* allMatch
+        * all match , to see conditional checks boolean , if all matches the condition provided.
+        * */
+        boolean oldAge = personList.stream().allMatch(person -> person.getAge() > 18);
+        System.out.println("oldage->"+ oldAge);
+
+        /* anyMatch
+         * all match , to see conditional checks boolean , if any one matches the condition provided.
+         * */
+        boolean underAge = personList.stream().anyMatch(person -> person.getAge() < 18);
+        System.out.println("under age->" + underAge);
+
+        /* noneMatch
+         * noneMatch , to see conditional checks boolean , if any one matches the condition provided.
+         * */
+        boolean noneMatch = personList.stream().noneMatch(person -> person.getAge() == 10);
+        System.out.println("Nonematch age->" + noneMatch);
+
+        /*
+        * max
+        * get the maximum value of the object
+        * */
+        Optional<Person> max = personList.stream().max(Comparator.comparing(Person::getAge));
+            // or
+        personList.stream().max(Comparator.comparing(Person::getAge)).ifPresent(person ->
+                System.out.println("max aged person->"+ person) );
+        /*
+         * min
+         * get the maximum value of the object
+         * */
+        personList.stream().min(Comparator.comparing(Person::getAge)).ifPresent(person ->
+                System.out.println("min aged person->"+ person) );
 
     }
 
@@ -48,7 +84,7 @@ public class MyJava {
         new Person("Gokul", 1, Gender.MALE),
         new Person("abc", 11, Gender.FEMALE),
         new Person("cde", 22, Gender.MALE),
-        new Person("ee", 21, Gender.MALE),
+        new Person("ee", 81, Gender.MALE),
         new Person("er", 34, Gender.FEMALE),
         new Person("dc", 3, Gender.MALE),
         new Person("erw", 55, Gender.MALE),
